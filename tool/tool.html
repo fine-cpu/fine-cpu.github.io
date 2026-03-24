@@ -29,6 +29,53 @@
                 <h1>Logisim 介绍</h1>
                 <p>Logisim 是一个用于数字逻辑设计和仿真的开源工具。</p>
                 <p>它提供了一个直观的界面，允许用户创建和测试数字电路。</p>
+                <br>
+                <h2><strong>注意:</strong>安装该软件前要先配置java坏境</h2>
+                <p>java环境配置步骤:</p>
+                <h2><strong>一、准备工作</strong></h2>
+                <p>1.下载<strong>JDK</strong> （Java 开发工具包，包含运行环境 JRE）</p>
+                <p>&nbsp;&nbsp;官方下载：<a href="https://www.oracle.com/java/technologies/downloads/">https://www.oracle.com/java/technologies/downloads/</a></p>
+                <p>&nbsp;&nbsp;推荐版本：<strong>JDK 8 / JDK 17</strong>（最稳定、企业最常用）</p>
+                <h2><strong>二、安装 JDK</strong></h2>
+                <p>1.双击下载的 .exe 文件</p>
+                <p>2.<strong>记住安装路径</strong></p>
+                <p>&nbsp;&nbsp;示例路径：</p>
+                <p>&nbsp;&nbsp;C:\Program Files\Java\jdk1.8.0_391</p>
+                <p>3.一路下一步，<strong>默认安装即可</strong></p>
+                <h2><strong>三、配置环境变量</strong></h2>
+                <p><strong>1.打开环境变量设置</strong></p>
+                <p>(1)右键 <strong>此电脑</strong> → 属性</p>
+                <p>(2)高级系统设置 → <strong>环境变量</strong></p>
+                <p><strong>2. 新建 JAVA_HOME 变量</strong></p>
+                <p>(1)点击 <strong>系统变量 → 新建</strong></p>
+                <p>(2)变量名：JAVA_HOME</p>
+                <p>(3)变量值：<strong>你的 JDK 安装路径</strong></p>
+                <p>&nbsp;&nbsp;示例：</p>
+                <p>&nbsp;&nbsp;C:\Program Files\Java\jdk1.8.0_391</p>
+                <p><strong>3. 配置 Path 变量</strong></p>
+                <p>(1)在系统变量里找到 <strong>Path</strong> → 编辑</p>
+                <p>(2)新建两条：</p>
+                <p>&nbsp;&nbsp;%JAVA_HOME%\bin</p>
+                <p>&nbsp;&nbsp;%JAVA_HOME%\jre\bin</p>
+                <p>(3)全部点击 <strong>确定</strong> 保存</p>
+                <h2><strong>四、验证是否配置成功</strong></h2>
+                <p>1.打开 <strong>CMD 命令行</strong>（Win+R 输入 cmd）</p>
+                <p>2.输入以下 3 条命令，<strong>都能正常显示版本</strong> 就成功了：</p>
+                <p>&nbsp;&nbsp;java -version</p>
+                <p>&nbsp;&nbsp;javac -version</p>
+                <p>&nbsp;&nbsp;java</p>
+                <p>✅ 成功标志：</p>
+                <p>(1)不提示 不是内部或外部命令</p>
+                <p>(2)能显示 Java 版本号（如 1.8.0_391）</p>
+                <h2><strong>常见问题</strong></h2>
+                <p>1.<strong>提示不是内部命令</strong></p>
+                <p>&nbsp;&nbsp;路径写错 / 没保存 / 没重启 CMD</p>
+                <p>&nbsp;&nbsp;解决：重新检查 JAVA_HOME，关闭 CMD 重新打开</p>
+                <p>2.<strong>安装了多个 Java 版本冲突</strong></p>
+                <p>&nbsp;&nbsp;只保留一个 JDK 在 Path 里最上方</p>
+                <br>
+                <br>
+                <h1>logisim下载</h1>
                 <p>2.15.0.2版本↓</p>
                 <p><a href="./logisim-hust-20200118.exe" download target="_blank" rel="noopener noreferrer">点击下载</a></p>
                 <p>最新版↓</p>
