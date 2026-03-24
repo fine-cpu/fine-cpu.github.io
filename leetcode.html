@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>leetcode</title>
+    <style>
+        .wrapper-grid {
+            --animation-duration: 2.1s;
+            --cube-color: #0000;
+            --highlight-color: #00cc44;
+            --cube-width: 48px;
+            --cube-height: 48px;
+            --font-size: 1.8em;
+            margin: 0 auto;
+            position: relative;
+            inset: 0;
+
+            display: grid;
+            /* 修改：列数从7改为8，适配新增的字母E */
+            grid-template-columns: repeat(8, var(--cube-width));
+            grid-template-rows: auto;
+            grid-gap: 0;
+
+            /* 修改：宽度从7倍改为8倍 */
+            width: calc(8 * var(--cube-width));
+            height: var(--cube-height);
+            perspective: 350px;
+
+            font-family: "Poppins", sans-serif;
+            font-size: var(--font-size);
+            font-weight: 800;
+            color: transparent;
+        }
+
+        .cube {
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .face {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: var(--cube-width);
+            height: var(--cube-height);
+            background-color: var(--cube-color);
+        }
+        .face-left,
+        .face-right,
+        .face-back,
+        .face-front {
+            box-shadow:
+                inset 0 0 2px 1px #0001,
+                inset 0 0 12px 1px #fff1;
+        }
+        .face-front {
+            transform: rotateY(0deg) translateZ(calc(var(--cube-width) / 2));
+        }
+        .face-back {
+            transform: rotateY(180deg) translateZ(calc(var(--cube-width) / 2));
+            opacity: 0.6;
+        }
+        .face-left {
+            transform: rotateY(-90deg) translateZ(calc(var(--cube-width) / 2));
+            opacity: 0.6;
+        }
+        .face-right {
+            transform: rotateY(90deg) translateZ(calc(var(--cube-width) / 2));
+            opacity: 0.6;
+        }
+        .face-top {
+            height: var(--cube-width);
+            transform: rotateX(90deg) translateZ(calc(var(--cube-width) / 2));
+            opacity: 0.8;
+        }
+        .face-bottom {
+            height: var(--cube-width);
+            transform: rotateX(-90deg)
+            translateZ(calc(var(--cube-height) - var(--cube-width) * 0.5));
+            opacity: 0.8;
+        }
+
+        /* 修改：新增第8个cube的动画延迟 */
+        .cube:nth-child(1) { z-index: 0; animation-delay: 0s; }
+        .cube:nth-child(2) { z-index: 1; animation-delay: 0.2s; }
+        .cube:nth-child(3) { z-index: 2; animation-delay: 0.4s; }
+        .cube:nth-child(4) { z-index: 3; animation-delay: 0.6s; }
+        .cube:nth-child(5) { z-index: 2; animation-delay: 0.8s; }
+        .cube:nth-child(6) { z-index: 1; animation-delay: 1s; }
+        .cube:nth-child(7) { z-index: 0; animation-delay: 1.2s; }
+        .cube:nth-child(8) { z-index: -1; animation-delay: 1.4s; } /* 新增 */
+
+        .cube {
+            animation: translate-z var(--animation-duration) ease-in-out infinite;
+        }
+        .cube .face {
+            animation:
+                face-color var(--animation-duration) ease-in-out infinite,
+                edge-glow var(--animation-duration) ease-in-out infinite;
+            animation-delay: inherit;
+        }
+        .cube .face.face-front {
+            animation:
+                face-color var(--animation-duration) ease-in-out infinite,
+                face-glow var(--animation-duration) ease-in-out infinite,
+                edge-glow var(--animation-duration) ease-in-out infinite;
+            animation-delay: inherit;
+        }
+
+        @keyframes translate-z {
+            0%, 40%, 100% { transform: translateZ(-2px); }
+            30% { transform: translateZ(16px) translateY(-1px); }
+        }
+        @keyframes face-color {
+            0%, 50%, 100% { background-color: var(--cube-color); }
+            10% { background-color: var(--highlight-color); }
+        }
+        @keyframes face-glow {
+            0%, 50%, 100% { color: #fff0; filter: none; }
+            30% { color: #fff; filter: drop-shadow(0 14px 10px var(--highlight-color)); }
+        }
+        @keyframes edge-glow {
+            0%, 40%, 100% {
+                box-shadow:
+                    inset 0 0 2px 1px #0001,
+                    inset 0 0 12px 1px #fff1;
+            }
+            30% { box-shadow: 0 0 2px 0px var(--highlight-color); }
+        }
+
+        .button {
+        --h-button: 48px;
+        --w-button: 102px;
+        --round: 0.75rem;
+        cursor: pointer;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        transition: all 0.25s ease;
+        background: radial-gradient(
+            65.28% 65.28% at 50% 100%,
+            rgba(223, 113, 255, 0.8) 0%,
+            rgba(223, 113, 255, 0) 100%
+            ),
+            linear-gradient(0deg, #7a5af8, #7a5af8);
+        border-radius: var(--round);
+        border: none;
+        outline: none;
+        padding: 12px 18px;
+        }
+        .button::before,
+        .button::after {
+        content: "";
+        position: absolute;
+        inset: var(--space);
+        transition: all 0.5s ease-in-out;
+        border-radius: calc(var(--round) - var(--space));
+        z-index: 0;
+        }
+        .button::before {
+        --space: 1px;
+        background: linear-gradient(
+            177.95deg,
+            rgba(255, 255, 255, 0.19) 0%,
+            rgba(255, 255, 255, 0) 100%
+        );
+        }
+        .button::after {
+        --space: 2px;
+        background: radial-gradient(
+            65.28% 65.28% at 50% 100%,
+            rgba(223, 113, 255, 0.8) 0%,
+            rgba(223, 113, 255, 0) 100%
+            ),
+            linear-gradient(0deg, #7a5af8, #7a5af8);
+        }
+        .button:active {
+        transform: scale(0.95);
+        }
+
+        .fold {
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 1rem;
+        width: 1rem;
+        display: inline-block;
+        transition: all 0.5s ease-in-out;
+        background: radial-gradient(
+            100% 75% at 55%,
+            rgba(223, 113, 255, 0.8) 0%,
+            rgba(223, 113, 255, 0) 100%
+        );
+        box-shadow: 0 0 3px black;
+        border-bottom-left-radius: 0.5rem;
+        border-top-right-radius: var(--round);
+        }
+        .fold::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 150%;
+        height: 150%;
+        transform: rotate(45deg) translateX(0%) translateY(-18px);
+        background-color: #e8e8e8;
+        pointer-events: none;
+        }
+        .button:hover .fold {
+        margin-top: -1rem;
+        margin-right: -1rem;
+        }
+
+        .points_wrapper {
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        position: absolute;
+        z-index: 1;
+        }
+
+        .points_wrapper .point {
+        bottom: -10px;
+        position: absolute;
+        animation: floating-points infinite ease-in-out;
+        pointer-events: none;
+        width: 2px;
+        height: 2px;
+        background-color: #fff;
+        border-radius: 9999px;
+        }
+        @keyframes floating-points {
+        0% {
+            transform: translateY(0);
+        }
+        85% {
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(-55px);
+            opacity: 0;
+        }
+        }
+        .points_wrapper .point:nth-child(1) {
+        left: 10%;
+        opacity: 1;
+        animation-duration: 2.35s;
+        animation-delay: 0.2s;
+        }
+        .points_wrapper .point:nth-child(2) {
+        left: 30%;
+        opacity: 0.7;
+        animation-duration: 2.5s;
+        animation-delay: 0.5s;
+        }
+        .points_wrapper .point:nth-child(3) {
+        left: 25%;
+        opacity: 0.8;
+        animation-duration: 2.2s;
+        animation-delay: 0.1s;
+        }
+        .points_wrapper .point:nth-child(4) {
+        left: 44%;
+        opacity: 0.6;
+        animation-duration: 2.05s;
+        }
+        .points_wrapper .point:nth-child(5) {
+        left: 50%;
+        opacity: 1;
+        animation-duration: 1.9s;
+        }
+        .points_wrapper .point:nth-child(6) {
+        left: 75%;
+        opacity: 0.5;
+        animation-duration: 1.5s;
+        animation-delay: 1.5s;
+        }
+        .points_wrapper .point:nth-child(7) {
+        left: 88%;
+        opacity: 0.9;
+        animation-duration: 2.2s;
+        animation-delay: 0.2s;
+        }
+        .points_wrapper .point:nth-child(8) {
+        left: 58%;
+        opacity: 0.8;
+        animation-duration: 2.25s;
+        animation-delay: 0.2s;
+        }
+        .points_wrapper .point:nth-child(9) {
+        left: 98%;
+        opacity: 0.6;
+        animation-duration: 2.6s;
+        animation-delay: 0.1s;
+        }
+        .points_wrapper .point:nth-child(10) {
+        left: 65%;
+        opacity: 1;
+        animation-duration: 2.5s;
+        animation-delay: 0.2s;
+        }
+
+        .inner {
+        z-index: 2;
+        gap: 6px;
+        position: relative;
+        width: 100%;
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.5;
+        transition: color 0.2s ease-in-out;
+        }
+
+        .inner svg.icon {
+        width: 18px;
+        height: 18px;
+        transition: fill 0.1s linear;
+        }
+
+        .button:focus svg.icon {
+        fill: white;
+        }
+        .button:hover svg.icon {
+        fill: transparent;
+        animation:
+            dasharray 1s linear forwards,
+            filled 0.1s linear forwards 0.95s;
+        }
+        @keyframes dasharray {
+        from {
+            stroke-dasharray: 0 0 0 0;
+        }
+        to {
+            stroke-dasharray: 68 68 0 0;
+        }
+        }
+        @keyframes filled {
+        to {
+            fill: white;
+        }
+        }
+       
+        a {
+            text-decoration: none;
+        }
+
+    * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+        body {
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .table-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            /* background: #fff; */
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 18px 24px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        th {
+            background-color: #f5f5f5;
+            font-weight: 600;
+            font-size: 18px;
+            color: #333;
+        }
+        td {
+            font-size: 16px;
+            color: #333;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        .topic-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .topic-link:hover {
+            text-decoration: underline;
+        }
+
+        .button1 {
+        transition: all 0.5s;
+        font-size: 17px;
+        padding: 1ch 2ch;
+        background-color: white;
+        color: #000;
+        cursor: pointer;
+        border: none;
+        border-radius: 2px;
+        box-shadow:
+            2px 2px 0px hsl(0, 0%, 90%),
+            4px 4px 0px hsl(0, 0%, 80%),
+            6px 6px 0px hsl(0, 0%, 70%),
+            8px 8px 0px hsl(0, 0%, 60%),
+            10px 10px 0px hsl(0, 0%, 50%),
+            12px 12px 0px hsl(0, 0%, 40%),
+            14px 14px 0px hsl(0, 0%, 30%),
+            16px 16px 0px hsl(0, 0%, 20%),
+            18px 18px 0px hsl(0, 0%, 10%);
+        }
+
+        .button1:hover {
+        background-color: hsl(0, 0%, 50%);
+        color: #fff;
+        box-shadow: none;
+        }
+
+        /* 新增：二分算法下拉列表样式 */
+        .dropdown-container {
+            max-width: 1200px;
+            margin: 15px auto 0;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            padding: 20px;
+            display: none; /* 默认隐藏 */
+        }
+        .dropdown-container.show {
+            display: block; /* 显示列表 */
+        }
+        .dropdown-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .dropdown-list {
+            list-style: none;
+            padding-left: 20px;
+        }
+        .dropdown-list li {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+        }
+        .dropdown-list li a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .dropdown-list li a:hover {
+            text-decoration: underline;
+        }
+
+        /* From Uiverse.io by ErzenXz */ 
+        .button2 {
+        width: fit-content;
+        min-width: 100px;
+        height: 45px;
+        padding: 8px;
+        border-radius: 5px;
+        border: 2.5px solid #E0E1E4;
+        box-shadow: 0px 0px 20px -20px;
+        cursor: pointer;
+        background-color: white;
+        transition: all 0.2s ease-in-out 0ms;
+        user-select: none;
+        font-family: 'Poppins', sans-serif;
+        }
+
+        .button2:hover {
+        background-color: #F2F2F2;
+        box-shadow: 0px 0px 20px -18px;
+        }
+
+        .button2:active {
+        transform: scale(0.95);
+        }
+
+        /* 修复按钮内部链接样式 */
+        .button2 a {
+            text-decoration: none !important;
+            color: #000 !important;
+        }
+
+        .button2 a:hover {
+            text-decoration: none !important;
+            color: #000 !important;
+        }
+
+        .button2 a {
+            text-decoration: none;
+            color: #000; /* 可以根据需要调整颜色 */
+        }
+
+        .button2 a:hover {
+            text-decoration: none; /* 确保hover时也没有下划线 */
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper-grid">
+    <div class="cube">
+        <div class="face face-front">L</div>
+        <div class="face face-back"></div>.button2 a {
+    text-decoration: none;
+    color: #000; /* 可以根据需要调整颜色 */
+}
+
+.button2 a:hover {
+    text-decoration: none; /* 确保hover时也没有下划线 */
+}
+
+        <div class="face face-right"></div>
+        <div class="face face-left"></div>
+        <div class="face face-top"></div>
+        <div class="face face-bottom"></div>
+    </div>
+
+    <div class="cube">
+        <div class="face face-front">E</div>
+        <div class="face face-back"></div>
+        <div class="face face-right"></div>
+        <div class="face face-left"></div>
+        <div class="face face-top"></div>
+        <div class="face face-bottom"></div>
+    </div>
+
+    <div class="cube">
+        <div class="face face-front">E</div>
+        <div class="face face-back"></div>
+        <div class="face face-right"></div>
+        <div class="face face-left"></div>
+        <div class="face face-top"></div>
+        <div class="face face-bottom"></div>
+    </div>
+
+    <div class="cube">
+        <div class="face face-front">T</div>
+        <div class="face face-back"></div>
+        <div class="face face-right"></div>
+        <div class="face face-left"></div>
+        <div class="face face-top"></div>
+        <div class="face face-bottom"></div>
+    </div>
+
+    <div class="cube">
+        <div class="face face-front">C</div>
+        <div class="face face-back"></div>
+        <div class="face face-right"></div>
+        <div class="face face-left"></div>
+        <div class="face face-top"></div>
+        <div class="face face-bottom"></div>
+    </div>
+
+    <div class="cube">
+        <div class="face face-front">O</div>
+        <div class="face face-back"></div>
+        <div class="face face-right"></div>
+        <div class="face face-left"></div>
+        <div class="face face-top"></div>
+        <div class="face face-bottom"></div>
+    </div>
+
+    <div class="cube">
+        <div class="face face-front">D</div>
+        <div class="face face-back"></div>
+        <div class="face face-right"></div>
+        <div class="face face-left"></div>
+        <div class="face face-top"></div>
+        <div class="face face-bottom"></div>
+    </div>
+
+    <div class="cube">
+        <div class="face face-front">E</div>
+        <div class="face face-back"></div>
+        <div class="face face-right"></div>
+        <div class="face face-left"></div>
+        <div class="face face-top"></div>
+        <div class="face face-bottom"></div>
+    </div>
+    </div>
+
+        <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>题单&nbsp;&nbsp;&nbsp;<a href="https://leetcode.cn/discuss/post/3141566/ru-he-ke-xue-shua-ti-by-endlesscheng-q3yd/" target="_blank">
+                    <button type="button" class="button">
+                    <span class="fold"></span>
+                    <div class="points_wrapper">
+                        <i class="point"></i>
+                        <i class="point"></i>
+                        <i class="point"></i>
+                        <i class="point"></i>
+                        <i class="point"></i>
+                        <i class="point"></i>
+                        <i class="point"></i>
+                        <i class="point"></i>
+                        <i class="point"></i>
+                        <i class="point"></i>
+                    </div>
+
+                    <span class="inner"
+                        ><svg
+                        class="icon"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2.5"
+                        >
+                        <polyline
+                            points="13.18 1.37 13.18 9.64 21.45 9.64 10.82 22.63 10.82 14.36 2.55 14.36 13.18 1.37"
+                        ></polyline></svg>具体参考灵神题单</span>
+                    </button>
+                    </a></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="topic-link" data-target="binary-search"><button class="button1">二分算法</button></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 新增：二分算法下拉列表容器 -->
+    <div id="binary-search" class="dropdown-container">
+        <div class="dropdown-title">二分算法题目</div>
+        <ul class="dropdown-list">
+            <li>LeetCode 719 - 找出第 K 小的数对距离
+<button class="button2"><a href="./leetcode/LeetCode 719 - 找出第 K 小的数对距离.html" target="_blank">直达链接</a></button></li>
+        </ul>
+    </div>
+
+    <!-- 新增：JavaScript 实现点击展开/收起功能 -->
+    <script>
+        // 获取所有题单链接和下拉列表容器
+        const topicLinks = document.querySelectorAll('.topic-link');
+        const dropdownContainer = document.querySelector('.dropdown-container');
+
+        // 为每个链接添加点击事件
+        topicLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                const target = this.getAttribute('data-target');
+                
+                // 如果点击的是二分算法，显示列表；否则隐藏
+                if (target === 'binary-search') {
+                    dropdownContainer.classList.toggle('show'); // 切换显示/隐藏
+                } else {
+                    dropdownContainer.classList.remove('show'); // 隐藏列表
+                }
+            });
+        });
+
+        // 点击页面空白处隐藏列表（可选优化）
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.topic-link') && !e.target.closest('.dropdown-container')) {
+                dropdownContainer.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

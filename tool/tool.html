@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工具与框架</title>
+    <link rel="stylesheet" href="toolstyle.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 左侧导航栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>软件介绍及下载</h2>
+            </div>
+            <ul class="menu-list">
+                <!-- 给每个菜单项添加 data-content 属性，对应右侧内容的id -->
+                <li class="menu-item active" data-content="logisim">
+                    <span class="menu-title">Logisim </span>
+                </li>
+            </ul>
+            <div class="sidebar-scroll-indicator"></div>
+        </aside>
+
+        <!-- 右侧内容区 -->
+        <main class="content">
+            <!-- 所有内容块，默认只显示第一个 -->
+            <div id="logisim" class="content-block active">
+                <h1>Logisim 介绍</h1>
+                <p>Logisim 是一个用于数字逻辑设计和仿真的开源工具。</p>
+                <p>它提供了一个直观的界面，允许用户创建和测试数字电路。</p>
+                <p>下载地址：<a href="https://github.com/logisim-evolution/logisim-evolution/releases/tag/v4.1.0" target="_blank">https://github.com/logisim-evolution/logisim-evolution/releases/tag/v4.1.0</a></p>
+                <p>Logisim-evolution以<a href="https://github.com/logisim-evolution/logisim-evolution/releases">编译版</a>下载，附带可安装的Windows、macOS和Linux软件包 或者以源<a href="https://github.com/logisim-evolution">代码形式</a>，你可以<a href="https://github.com/logisim-evolution/logisim-evolution/blob/main/docs/developers.md">自己编写</a>。</p>
+                <p>以下<a href="https://github.com/logisim-evolution/logisim-evolution/releases">平台特定包</a>包含 Java 运行时，且不要求单独安装：</p>
+                <ul>
+                    <li>logisim-evolution_&lt;version&gt;-1_amd64.deb： Debian 套件（也适用于 Ubuntu 及其衍生版本），</li>
+                    <li>logisim-evolution-&lt;version&gt;-1.x86_64.rpm：适用于Fedora/Redhat/CentOS/SuSE Linux发行版的软件包，</li>
+                    <li>logisim-evolution-&lt;version&gt;-_amd64.snap：<a href="https://snapcraft.io/docs/">Snap</a>档案 支持的Linux发行版（也可在<a href="https://snapcraft.io/logisim-evolution">Snapcraft商店</a>获得），</li>
+                    <li>logisim-evolution-&lt;version&gt;-aarch64.msi：Microsoft Windows for Arm处理器安装包，</li>
+                    <li>logisim-evolution-&lt;version&gt;-amd64.msi：适用于Microsoft Windows的安装包，适用于Intel处理器，</li>
+                    <li>logisim-evolution-&lt;version&gt;-aarch64.dmg：macOS 苹果处理器包，</li>
+                    <li>logisim-evolution-&lt;version&gt;-x86_64.dmg：macOS Intel 处理器包（在仿真中也运行于 Apple 处理器上）。</li>
+                </ul>
+                <p>Java JAR <a href="https://github.com/logisim-evolution/logisim-evolution/releases">logisim-evolution-&lt;version&gt;-all.jar</a> 也可用，可在任何安装支持的 Java 运行时的系统上运行。</p>
+                <a href="https://snapcraft.io/logisim-evolution" target="_blank"><img src="./68747470733a2f2f736e617063726166742e696f2f7374617469632f696d616765732f6261646765732f656e2f736e61702d73746f72652d626c61636b2e737667.svg" alt=""></a>
+            </div>
+        </main>
+    </div>
+
+    <script src="toolscript.js"></script>
+</body>
+</html>

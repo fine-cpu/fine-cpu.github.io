@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工具与框架</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="./algorithmstyle.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 左侧导航栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>数据结构</h2>
+            </div>
+            <ul class="menu-list">
+                <li class="menu-item active">
+                    <span class="menu-title">数据结构部分简介</span>
+                </li>
+                <li class="menu-item active">
+                    <span class="menu-title">ST 表</span>
+                </li>
+            </ul>
+            <!-- 左侧滚动条指示器（和截图一致） -->
+            <div class="sidebar-scroll-indicator"></div>
+        </aside>
+
+        <!-- 右侧内容区 -->
+        <main class="content">
+            <div class="content-header">
+                <h1>ST 表</h1>
+                <!-- 右上角复制图标（截图样式） -->
+                <div class="copy-icon">📋</div>
+            </div>
+
+            <section class="content-section">
+                <h2>定义</h2>
+                <!-- 示例图（替换为你本地路径 D:/china-cities-website/frontend/images/st-table.png） -->
+                <div class="example-img">
+                    <img src="D:/china-cities-website/frontend/images/st-table.png" alt="ST表示例">
+                </div>
+                <p>ST 表（Sparse Table，稀疏表）是用于解决 <strong>可重复贡献问题</strong> 的数据结构。</p>
+
+                <!-- 折叠面板（和截图一致） -->
+                <div class="collapse-panel">
+                    <div class="panel-header">
+                        <span class="panel-icon">🔵</span>
+                        <span class="panel-title">什么是可重复贡献问题?</span>
+                        <span class="panel-arrow">▼</span>
+                    </div>
+                    <div class="panel-content">
+                        <p>可重复贡献问题 是指对于运算 opt，满足 <code>x opt x = x</code>，则对应的区间询问就是一个可重复贡献问题。例如，最大值有 <code>max(x,x) = x</code>，gcd 有 <code>gcd(x,x) = x</code>，所以 RMQ 和区间 GCD 就是一个可重复贡献问题。像区间和就不具有这个性质，如果求区间和的时候采用的预处理区间重叠了，则会导致重叠部分被计算两次，这是我们所不愿意看到的。另外，opt 还必须满足结合律才能使用 ST 表求解。</p>
+                    </div>
+                </div>
+
+                <div class="collapse-panel">
+                    <div class="panel-header">
+                        <span class="panel-icon">🔵</span>
+                        <span class="panel-title">什么是RMQ?</span>
+                        <span class="panel-arrow">▼</span>
+                    </div>
+                    <div class="panel-content">
+                        <p>RMQ 是英文 Range Maximum/Minimum Query 的缩写，表示区间最大（最小）值。解决 RMQ 问题有很多种方法，可以参考 <a href="#">RMQ专题</a>。</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 引入交互脚本 -->
+    <script src="./algorithmscript.js"></script>
+</body>
+</html>
