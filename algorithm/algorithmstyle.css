@@ -122,28 +122,26 @@ body {
     overflow-y: auto;
     padding: 30px 50px;
     background-color: #fff;
+    position: relative;
 }
 
-.content-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
+/* 内容块：默认隐藏，只显示active的 */
+.content-block {
+    display: none;
 }
 
-.content-header h1 {
+.content-block.active {
+    display: block;
+}
+
+.content-block h1 {
     font-size: 36px;
     color: #999;
     font-weight: normal;
+    margin-bottom: 30px;
 }
 
-.copy-icon {
-    font-size: 24px;
-    cursor: pointer;
-    color: #999;
-}
-
-.content-section h2 {
+.content-block h2 {
     font-size: 32px;
     color: #333;
     margin-bottom: 20px;
@@ -160,7 +158,7 @@ body {
     border-radius: 4px;
 }
 
-.content-section p {
+.content-block p {
     font-size: 18px;
     line-height: 1.8;
     color: #333;
@@ -243,10 +241,10 @@ body {
     .content {
         padding: 20px;
     }
-    .content-header h1 {
+    .content-block h1 {
         font-size: 28px;
     }
-    .content-section h2 {
+    .content-block h2 {
         font-size: 24px;
     }
 }
