@@ -77,6 +77,22 @@ ul {
     color: #3498db;
 }
 
+@font-face {
+  font-family: "AlimamaDaoLiTi";
+  font-weight: 400;
+  src: url("https://at.alicdn.com/wf/webfont/thKoHdMd8We8/iD4xTIzuuVdG.woff2") format("woff2"),
+  url("https://at.alicdn.com/wf/webfont/thKoHdMd8We8/8RTdvHrQCvfa.woff") format("woff");
+  font-variation-settings: normal;
+  font-display: swap;
+}
+
+.webfont {
+  font-family: "AlimamaDaoLiTi";
+  font-variation-settings: normal;
+  font-size: 30px;
+  color: red;
+}
+
 .nav-menu {
     display: flex;
     gap: 2rem;
