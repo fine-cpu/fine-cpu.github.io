@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Microsoft YaHei", sans-serif;
+}
+
+body {
+    background: #fff;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* 左侧 */
+.left-sidebar {
+    width: 280px;
+    background-color: #fff;
+    border-right: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-y: auto;
+    padding: 20px 0;
+}
+
+.top-title {
+    font-size: 20px;
+    color: #666;
+    padding: 0 20px 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* 折叠菜单标题 */
+.menu-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #666; /* 默认黑色，点击变红 */
+    cursor: pointer;
+    margin-bottom: -5px; /* 缩小标题与子菜单间距（原10px） */
+    transition: color 0.3s;
+}
+
+/* 标题激活态（点击后变红） */
+.menu-title.active {
+    color: red;
+}
+
+.arrow {
+    font-size: 10px;
+    transition: transform 0.3s;
+}
+
+/* 展开时箭头向上 */
+.menu-item-wrap.open .arrow {
+    transform: rotate(180deg);
+}
+
+/* 子菜单默认隐藏 */
+.sub-menu {
+    list-style: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    margin-left: 40px;
+}
+
+/* 展开后显示 */
+.menu-item-wrap.open .sub-menu {
+    max-height: 500px;
+}
+
+.sub-li {
+    font-size: 16px;
+    color: #222;
+    padding: 8px 0;
+    cursor: pointer;
+}
+
+.sub-li:hover,
+.sub-li.active {
+    color: red;
+}
+
+/* 右侧内容 */
+.right-content {
+    width: 72%;
+    padding: 40px;
+}
+
+.content {
+    display: none;
+}
+
+.content.active {
+    display: block;
+}
+
+.content h1 {
+    font-size: 42px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.content p {
+    font-size: 22px;
+    line-height: 1.8;
+}
