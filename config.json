@@ -1,0 +1,55 @@
+{
+    "title": "我是网站的标题~",
+    "theme": {
+        "theme": "liora",
+        "displayName": "Liora",
+        "colors": {
+            "autoSwitch": {
+                "displayName": "Aura",
+                "light": "sun",
+                "dark": "moon",
+                "icon": {
+                    "icon": "fa-solid fa-circle-half-stroke",
+                    "color": "#808080",
+                    "background": "linear-gradient(45deg, #fff9ea 50%, #1e1e2e 50%)"
+                }
+            },
+            "enable": ["sun", "!autoSwitch", "moon"],
+            "default": "!autoSwitch"
+        }
+    },
+    "masterInfo": {
+        "name": "Meteor",
+        "avatar": "./assets/images/avatar.png",
+        "website": "https://hic.top",
+        "socialLink": {
+            "link": {
+                "bilibili": "https://space.bilibili.com/3546773480016111?spm_id_from=333.337.0.0",
+                "github": "https://github.com/fine-cpu",
+                "email": "javascript:showEmail()"
+            },
+            "icon": {
+                "bilibili": "fa-brands fa-bilibili",
+                "github": "fa-brands fa-github",
+                "email": "fa-solid fa-envelope"
+            },
+            "enable": ["bilibili", "github", "email"]
+        }
+    },
+    "pageHead": {
+        "typedContent": ["月有阴晴圆缺", "人有悲欢离合"]
+    },
+    "icp": {
+        "info": {
+            "code": {
+                "china": "",
+                "moegov": ""
+            },
+            "link": {
+                "china": "",
+                "moegov": ""
+            }
+        },
+        "enable": ["", ""]
+    }
+}

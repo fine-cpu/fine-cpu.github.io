@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>文章 - Loading...</title>
+        <meta name="description" content="文章列表" />
+        <link rel="icon" href="./favicon.ico" />
+
+        <link rel="stylesheet" href="./assets/styles/loaders.css" />
+        <iframe id="global-loader-iframe" src="./loaders/global.html"></iframe>
+
+        <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.0.0/css/all.css" />
+
+        <script src="https://cdn.bootcdn.net/ajax/libs/alpinejs/3.14.9/cdn.min.js" defer></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/typed.js/2.0.12/typed.js"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/markdown-it/12.3.2/markdown-it.js"></script>
+
+        <link rel="stylesheet" href="./assets/styles/elements.css?v=3" />
+        <link rel="stylesheet" href="./assets/styles/index.css?v=3" />
+        <link rel="stylesheet" href="./assets/styles/nav.css?v=1" />
+        <link rel="stylesheet" href="./assets/styles/articles.css?v=1" />
+        <link rel="stylesheet" href="./assets/styles/responsive/index.css?v=3" />
+
+        <!-- 预加载数据（兼容 file:// 协议） -->
+        <script>
+window.__FIREFLY_CONFIG__ = {"title":"孤屿幻世","theme":{"theme":"liora","displayName":"Liora","colors":{"autoSwitch":{"displayName":"Aura","light":"sun","dark":"moon","icon":{"icon":"fa-solid fa-circle-half-stroke","color":"#808080","background":"linear-gradient(45deg, #fff9ea 50%, #1e1e2e 50%)"}},"enable":["sun","!autoSwitch","moon"],"default":"!autoSwitch"}},"masterInfo":{"name":"Meteor","avatar":"./assets/images/avatar.png","website":"https://hic.top","socialLink":{"link":{"bilibili":"https://space.bilibili.com/3546773480016111?spm_id_from=333.337.0.0","github":"https://github.com/fine-cpu","email":"javascript:showEmail()"},"icon":{"bilibili":"fa-brands fa-bilibili","github":"fa-brands fa-github","email":"fa-solid fa-envelope"},"enable":["bilibili","github","email"]}},"pageHead":{"typedContent":["111"]},"icp":{"info":{"code":{"china":"","moegov":""},"link":{"china":"https://beian.miit.gov.cn","moegov":"https://icp.gov.moe/?keyword=xxxxxxxx"}},"enable":["moegov","china"]}};
+window.__FIREFLY_MD__ = {"python-getting-started":"## 什么是 Python？\n\nPython 是一种广泛使用的高级编程语言，由 Guido van Rossum 于 1991 年首次发布。它以简洁优雅的语法和强大的功能著称，广泛应用于 Web 开发、数据分析、人工智能、自动化脚本等领域。\n\nPython 的主要特点：\n\n- **语法简洁**：代码可读性极高，接近自然语言\n- **跨平台**：支持 Windows、macOS、Linux 等主流操作系统\n- **丰富的库生态**：拥有庞大的第三方库和框架\n- **社区活跃**：全球数百万开发者贡献代码和文档\n\n## 下载 Python\n\n访问 Python 官方网站下载最新版本：\n\n🔗 [https://www.python.org/downloads/](https://www.python.org/downloads/)\n\n### Windows 安装步骤\n\n1. 打开下载页面，点击黄色按钮下载最新版 Python\n2. 运行下载的安装包（`.exe` 文件）\n3. **重要**：勾选底部的 **「Add Python to PATH」** 选项\n4. 点击「Install Now」开始安装\n5. 安装完成后，打开命令提示符验证：\n\n```bash\npython --version\n```\n\n如果显示版本号（如 `Python 3.12.0`），说明安装成功。\n\n### 验证 pip\n\npip 是 Python 的包管理工具，通常随 Python 一起安装：\n\n```bash\npip --version\n```\n\n## PyCharm 安装步骤\n\nPyCharm 是 JetBrains 推出的专业 Python IDE，提供社区版（免费）和专业版。\n\n### 下载与安装\n\n1. 访问 [JetBrains 官网](https://www.jetbrains.com/pycharm/download/) 下载 PyCharm\n2. 选择 **Community Edition**（社区版，免费使用）\n3. 运行安装程序，按默认选项安装即可\n4. 首次启动时选择 UI 主题（推荐 Darcula 暗色主题）\n\n### 创建第一个 Python 项目\n\n1. 打开 PyCharm，点击 **New Project**\n2. 选择项目保存路径\n3. 确保已选中 Python 解释器（自动检测已安装的 Python）\n4. 点击 **Create** 创建项目\n5. 右键项目目录 → **New** → **Python File**，命名为 `hello`\n6. 输入以下代码：\n\n```python\nprint(\"Hello, Python!\")\n```\n\n7. 右键代码编辑区 → **Run 'hello'**，或按 `Ctrl + Shift + F10`\n\n终端输出 `Hello, Python!` 即表示环境配置成功！\n\n## 推荐的学习资源\n\n- 📖 [Python 官方文档](https://docs.python.org/zh-cn/3/)\n- 🎓 [菜鸟教程 - Python](https://www.runoob.com/python/python-tutorial.html)\n- 📚 [廖雪峰的 Python 教程](https://www.liaoxuefeng.com/wiki/1016959663602400)\n\n## 总结\n\nPython 是一门非常适合编程入门的语言，配合 PyCharm 这样的专业 IDE，可以让你事半功倍。安装过程只需几分钟，现在就动手试试吧！\n"};
+window.__FIREFLY_ARTICLES__ = [{"slug":"python-getting-started","title":"Python 入门：下载安装与 PyCharm 配置指南","date":"2026-06-15","tags":["Python","PyCharm","教程"],"description":"Python 是一种广泛使用的高级编程语言，语法简洁、功能强大。本文详细介绍 Python 的下载安装以及 PyCharm IDE 的配置步骤，帮助你快速搭建开发环境。","cover":""}];
+window.__FIREFLY_THEME__ = {"liora":{"id":"liora","name":"Liora","version":"1.0.0","author":"成成0v0","repo":"https://github.com/ChengCheng0v0/Liora","files":{"styles":["colors.css","elements.css","index.css"],"scripts":["reload-fix.js","index.js"]},"colors":{"list":{"sun":{"displayName":"Sun","files":{"styles":[],"scripts":[]},"icon":{"icon":"fa-solid fa-sun","color":"#ae7954","background":"#fff9ea"}},"moon":{"displayName":"Moon","files":{"styles":["index.css","colors.css"],"scripts":[]},"icon":{"icon":"fa-solid fa-moon","color":"#c48fad","background":"#1e1e2e"}}},"index":["sun","moon"]}}};
+        </script>
+
+        <script src="./assets/scripts/utils.js?v=5"></script>
+        <script src="./assets/scripts/theme-loader.js?v=3"></script>
+        <script src="./assets/scripts/articles.js?v=1"></script>
+
+        <theme></theme>
+    </head>
+    <body x-data="" class="has-nav">
+        <!-- 导航栏 -->
+        <nav class="site-nav" id="site-nav">
+            <div class="nav-inner">
+                <a class="nav-brand" href="./index.html">
+                    <i class="fa-solid fa-feather-pointed"></i>
+                    <span x-text="config.content.title">Loading...</span>
+                </a>
+                <div class="nav-links">
+                    <a href="./index.html"><i class="fa-solid fa-house"></i> 首页</a>
+                    <a href="./articles.html" class="active"><i class="fa-solid fa-newspaper"></i> 文章</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="page-head">
+            <span class="title"></span>
+        </div>
+
+        <div class="primary-container">
+            <div class="left-area">
+                <div class="cards">
+                    <div class="card-item" id="personal-info">
+                        <img class="avatar" :src="config.content.masterInfo.avatar" />
+                        <span class="name" x-text="config.content.masterInfo.name">Loading...</span>
+                        <div class="social-icons">Loading...</div>
+                    </div>
+                    <div class="card-item" id="hitokoto">
+                        <span class="title"><i class="fa-solid fa-scroll"></i>一言</span>
+                        <div class="content">
+                            <a id="hitokoto-text" href="" target="_blank">Loading...</a>
+                        </div>
+                    </div>
+                    <div class="card-item" id="settings">
+                        <span class="title"><i class="fa-solid fa-sliders"></i>浏览设置</span>
+                        <div class="content">
+                            <div class="settings-item theme-settings">
+                                <span class="title"><i class="fa-solid fa-shirt"></i>配色方案 · <span x-text="config.content.theme.displayName"></span></span>
+                                <div class="themes"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-area">
+                <!-- 文章列表视图 -->
+                <div id="article-list" class="articles-container">
+                    <div class="articles-header">
+                        <h2><i class="fa-solid fa-newspaper"></i> 文章列表</h2>
+                        <span class="article-count" id="article-count"></span>
+                    </div>
+                    <div id="article-cards" class="article-cards">
+                        <!-- 文章卡片由 JS 动态生成 -->
+                    </div>
+                    <div id="article-loading" class="article-loading">
+                        <i class="fa-solid fa-spinner fa-spin"></i> 加载文章列表中...
+                    </div>
+                </div>
+
+                <!-- 文章详情视图（默认隐藏） -->
+                <div id="article-detail" class="content-page article-detail" style="display:none;">
+                    <a id="article-back" class="article-back" href="javascript:void(0)" onclick="goBackToList();return false;">
+                        <i class="fa-solid fa-arrow-left"></i> 返回文章列表
+                    </a>
+                    <div id="article-detail-content" class="markdown-content"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span class="icp-info">Loading...</span>
+            <span class="line-break"><i class="fa-solid fa-ellipsis"></i></span>
+            <span>本站由 <span class="webmaster-info"><a :href="config.content.masterInfo.website" target="_blank" x-text="config.content.masterInfo.name">[Loading...]</a>  </span> 用 <i class="fa-solid fa-heart"></i> 制作</span>
+        </div>
+
+        <iframe id="theme-color-loader-iframe" src="./loaders/theme-color.html"></iframe>
+
+        <script>
+            document.body.style.overflow = "hidden";
+            const minimumLoadingTime = 1500;
+            const startTime = new Date().getTime();
+            window.addEventListener("load", function () {
+                const currentTime = new Date().getTime();
+                const elapsedTime = currentTime - startTime;
+                const delay = Math.max(0, minimumLoadingTime - elapsedTime);
+                setTimeout(() => {
+                    document.getElementById("global-loader-iframe").className = "end";
+                    document.body.style.overflow = "unset";
+                }, delay);
+            });
+        </script>
+    </body>
+</html>

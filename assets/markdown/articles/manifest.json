@@ -1,0 +1,16 @@
+{
+  "articles": [
+    {
+      "slug": "python-getting-started",
+      "title": "Python 入门：下载安装与 PyCharm 配置指南",
+      "date": "2026-06-15",
+      "tags": [
+        "Python",
+        "PyCharm",
+        "教程"
+      ],
+      "description": "Python 是一种广泛使用的高级编程语言，语法简洁、功能强大。本文详细介绍 Python 的下载安装以及 PyCharm IDE 的配置步骤，帮助你快速搭建开发环境。",
+      "cover": ""
+    }
+  ]
+}
