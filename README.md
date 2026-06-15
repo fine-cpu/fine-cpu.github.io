@@ -4,7 +4,7 @@
 
 ## 预览
 
-![预览](https://s2.loli.net/2024/11/10/nHRUIDs6pjLfkBz.png)
+![预览](yulan.png)
 
 > [!TIP]
 > 此预览使用 [Liora](https://github.com/ChengCheng0v0/Liora) 主题，它是本项目的官方推荐主题。
