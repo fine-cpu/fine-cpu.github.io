@@ -7,15 +7,37 @@
         <meta name="description" content="文章列表" />
         <link rel="icon" href="./favicon.ico" />
 
+        <!-- 加载超时兜底：必须在 CDN 脚本之前，防止 CDN 阻塞导致永远 Loading -->
+        <script>
+            (function() {
+                var maxLoadTime = 8000;
+                var minLoadTime = 1500;
+                var startTime = Date.now();
+                var hidden = false;
+                function hide() {
+                    if (hidden) return;
+                    hidden = true;
+                    var delay = Math.max(0, minLoadTime - (Date.now() - startTime));
+                    setTimeout(function() {
+                        var loader = document.getElementById("global-loader-iframe");
+                        if (loader) { loader.className = "end"; }
+                        document.body.style.overflow = "unset";
+                    }, delay);
+                }
+                window.addEventListener("load", hide);
+                setTimeout(hide, maxLoadTime);
+            })();
+        </script>
+
         <link rel="stylesheet" href="./assets/styles/loaders.css" />
         <iframe id="global-loader-iframe" src="./loaders/global.html"></iframe>
 
-        <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.0.0/css/all.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
-        <script src="https://cdn.bootcdn.net/ajax/libs/alpinejs/3.14.9/cdn.min.js" defer></script>
-        <script src="https://cdn.bootcdn.net/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-        <script src="https://cdn.bootcdn.net/ajax/libs/typed.js/2.0.12/typed.js"></script>
-        <script src="https://cdn.bootcdn.net/ajax/libs/markdown-it/12.3.2/markdown-it.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.14.9/cdn.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.3.2/markdown-it.min.js"></script>
 
         <link rel="stylesheet" href="./assets/styles/elements.css?v=3" />
         <link rel="stylesheet" href="./assets/styles/index.css?v=3" />
@@ -113,30 +135,5 @@ window.__FIREFLY_THEME__ = {"liora":{"id":"liora","name":"Liora","version":"1.0.
         </div>
 
         <iframe id="theme-color-loader-iframe" src="./loaders/theme-color.html"></iframe>
-
-        <script>
-            document.body.style.overflow = "hidden";
-            const minimumLoadingTime = 1500;
-            const maxLoadingTime = 8000; // 最长等待 8 秒，防止 CDN 资源卡住
-            const startTime = new Date().getTime();
-            let loaderHidden = false;
-
-            function hideLoader() {
-                if (loaderHidden) return;
-                loaderHidden = true;
-                const elapsed = new Date().getTime() - startTime;
-                const delay = Math.max(0, minimumLoadingTime - elapsed);
-                setTimeout(() => {
-                    document.getElementById("global-loader-iframe").className = "end";
-                    document.body.style.overflow = "unset";
-                }, delay);
-            }
-
-            // 正常流程：所有资源加载完成后隐藏
-            window.addEventListener("load", hideLoader);
-
-            // 兜底：超时后强制隐藏（防止 CDN 资源加载失败导致永远显示加载动画）
-            setTimeout(hideLoader, maxLoadingTime);
-        </script>
     </body>
 </html>
