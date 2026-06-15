@@ -2,15 +2,11 @@
 
 一个二次元风格的轻量级个人主页，支持主题切换、Markdown 内容渲染、文章系统和内置音乐播放器。
 
-## 预览
-
-![预览](yulan.png)
 
 > [!TIP]
 > 此预览使用 [Liora](https://github.com/ChengCheng0v0/Liora) 主题，它是本项目的官方推荐主题。
 > 强烈建议在部署后配置一个主题样式！
 
-你也可以看看[我的个人网站 (hic.top)](https://hic.top)，它同样使用了本项目 + Liora 主题的组合。
 
 ---
 
