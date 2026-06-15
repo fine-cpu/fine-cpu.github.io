@@ -117,16 +117,26 @@ window.__FIREFLY_THEME__ = {"liora":{"id":"liora","name":"Liora","version":"1.0.
         <script>
             document.body.style.overflow = "hidden";
             const minimumLoadingTime = 1500;
+            const maxLoadingTime = 8000; // 最长等待 8 秒，防止 CDN 资源卡住
             const startTime = new Date().getTime();
-            window.addEventListener("load", function () {
-                const currentTime = new Date().getTime();
-                const elapsedTime = currentTime - startTime;
-                const delay = Math.max(0, minimumLoadingTime - elapsedTime);
+            let loaderHidden = false;
+
+            function hideLoader() {
+                if (loaderHidden) return;
+                loaderHidden = true;
+                const elapsed = new Date().getTime() - startTime;
+                const delay = Math.max(0, minimumLoadingTime - elapsed);
                 setTimeout(() => {
                     document.getElementById("global-loader-iframe").className = "end";
                     document.body.style.overflow = "unset";
                 }, delay);
-            });
+            }
+
+            // 正常流程：所有资源加载完成后隐藏
+            window.addEventListener("load", hideLoader);
+
+            // 兜底：超时后强制隐藏（防止 CDN 资源加载失败导致永远显示加载动画）
+            setTimeout(hideLoader, maxLoadingTime);
         </script>
     </body>
 </html>
