@@ -1,87 +1,213 @@
-## ACG Home
+﻿# Firefly（ACG-Home）
 
-一个二次元风格的个人主页！
+一个二次元风格的轻量级个人主页，支持主题切换、Markdown 内容渲染、文章系统和内置音乐播放器。
 
 ## 预览
 
 ![预览](https://s2.loli.net/2024/11/10/nHRUIDs6pjLfkBz.png)
 
-> [!TIP]  
-> 此预览使用 [Liora](https://github.com/ChengCheng0v0/Liora) 主题，它是 ACG-Home 的官方推荐主题。  
-> 强烈建议在安装完本项目后立刻配置一个主题样式，因为默认主题实在是不太好看~~
+> [!TIP]
+> 此预览使用 [Liora](https://github.com/ChengCheng0v0/Liora) 主题，它是本项目的官方推荐主题。
+> 强烈建议在部署后配置一个主题样式！
 
-你也可以看看[我的个人网站 (hic.top)](https://hic.top)，它也使用 ACG-Home + Liora Theme 的组合！
+你也可以看看[我的个人网站 (hic.top)](https://hic.top)，它同样使用了本项目 + Liora 主题的组合。
 
 ---
 
-项目的开发工作会在 `develop` 分支中进行，对于最新的改动预览请查看：[https://develop.acg-home.pages.dev](https://develop.acg-home.pages.dev)。
-
 ## 介绍
 
-这是一个简单的个人网站，没有太多花里花哨的东西。  
-其设计理念为简洁至上，拥有较为现代的 UI 风格和合理的页面布局。
+这是一个简洁的个人网站项目，设计理念为**简洁至上**，拥有现代的 UI 风格和合理的双栏页面布局。
 
-你是否因为在修改网站模板时需要仔细查找代码并进行文本替换而感到烦恼？本项目的模块化设计很好地解决了这个问题！对于 网站标题、站长信息、社交链接、备案信息 等在使用前必定需要进行修改的内容，我将它们放在了“网站配置”中，而不是直接硬编码在代码里。如果你对于网站的内容和样式没有特殊需求的话，只需要简单地对 JSON 配置文件进行修改就可以使用了！  
-使用配置文件还有一个好处就是你可以非常轻松地进行版本升级，每次更新的时候只需要对配置文件进行手动修改就可以做到基本内容的无缝切换。  
-关于如何修改网站配置，请参见下面的 [如何使用/修改网站配置](#修改网站配置) 章节。
+### 核心特性
 
-网站的内容和公告区域是使用 [markdown-it](https://github.com/markdown-it/markdown-it) 将 Markdown 渲染为 HTML 的（就像 GitHub 主页的 README 一样），这么做的好处是大大降低了网站编写的复杂性，并且这个渲染器不会过滤掉 HTML 内容（这意味着你只需要编写简短的 Markdown 文档就可以做出复杂的页面内容！）。
+- **JSON 配置驱动**：网站标题、站长信息、社交链接、备案信息等全部通过 `config.json` 管理，无需修改代码即可完成个性化配置
+- **Markdown 内容渲染**：使用 [markdown-it](https://github.com/markdown-it/markdown-it) 渲染 Markdown 为 HTML，支持内嵌 HTML 标签，编辑内容就像写 README 一样简单
+- **文章系统**：支持 Markdown + YAML Frontmatter 格式的文章，自动生成文章清单（`manifest.json`），包含文章列表页和详情页
+- **主题系统**：可插拔的主题架构，支持亮色/暗色/自动（按时段）配色切换，内置 Liora 主题
+- **内置音乐播放器**：支持自定义歌单的紧凑型播放器，带进度条和音量控制
+- **响应式设计**：适配桌面端和移动端
+- **兼容 `file://` 协议**：通过预加载内嵌数据，无需 HTTP 服务器即可本地浏览
 
-项目的代码有着较高的可读性，加上其内容与 HTML 样式分离的设计使得你可以轻松地将它修改成你想要的样子！  
-网站只有一个简单的最小化框架，你可以在这个基础上增加任何你喜欢的内容，而不会被大型项目的局限性和复杂性所影响。
+### 技术栈
 
-这个项目目前正处在重构后的第一个大版本！所以未来还会在保留当前设计理念的情况下增加很多模块化的功能，如果感兴趣的话欢迎点个 Star 和关注，谢谢！\(>▽
+| 类别 | 技术 |
+|------|------|
+| 前端框架 | [Alpine.js](https://alpinejs.dev/) — 轻量响应式数据绑定 |
+| Markdown 渲染 | [markdown-it](https://github.com/markdown-it/markdown-it) |
+| 打字效果 | [Typed.js](https://github.com/mattboldt/typed.js) |
+| 图标 | [Font Awesome](https://fontawesome.com/) 6.x |
+| 弹窗提示 | [SweetAlert](https://sweetalert.js.org/) |
+| 代码规范 | ESLint + Prettier |
+| 开发工具 | Node.js（`md-sync.js` 热更新 Markdown） |
 
-有任何问题欢迎提 Issue！有希望添加的功能或者有任何建议的话请发起讨论！
+### 项目结构
 
-### 使用的项目
+```
+├── index.html                  # 首页
+├── articles.html               # 文章列表页
+├── config.json                 # 网站配置文件
+├── package.json                # 项目元信息 & npm 脚本
+├── eslint.config.mjs           # ESLint 配置
+├── scripts/
+│   └── md-sync.js              # Markdown 同步监听工具（开发用）
+├── assets/
+│   ├── markdown/               # Markdown 内容目录
+│   │   ├── announcement.md     # 公告内容
+│   │   ├── content-page.md     # 首页正文内容
+│   │   └── articles/           # 文章目录（.md + manifest.json）
+│   ├── music/                  # 音乐播放器 & 歌单
+│   │   ├── player.js           # 播放器核心逻辑
+│   │   └── playlist.js         # 歌单配置
+│   ├── scripts/                # 前端 JS
+│   │   ├── utils.js            # 工具函数 & 配置加载 & Markdown 渲染
+│   │   ├── theme-loader.js     # 主题加载 & 配色切换
+│   │   ├── index.js            # 首页逻辑
+│   │   ├── articles.js         # 文章页逻辑
+│   │   └── meting.js           # 外部播放器占位组件
+│   ├── styles/                 # CSS 样式
+│   │   ├── index.css
+│   │   ├── elements.css
+│   │   ├── nav.css
+│   │   ├── articles.css
+│   │   ├── loaders.css
+│   │   └── responsive/         # 响应式样式
+│   ├── images/                 # 图片资源
+│   └── fonts/                  # 字体文件
+├── loaders/                    # 全局加载动画（iframe 注入）
+│   ├── global.html
+│   └── theme-color.html
+└── themes/
+    └── liora/                  # Liora 主题
+        ├── theme.json          # 主题元数据
+        ├── styles/             # 主题样式
+        ├── scripts/            # 主题脚本
+        └── colors/             # 配色方案（sun / moon）
+```
 
-- 语言: 前端三件套 (HTML, CSS, JavaScript)
-- Markdown 渲染器: [markdown-it.js](https://github.com/markdown-it/markdown-it)
-- 文本打字效果: [Typed.js](https://github.com/mattboldt/typed.js)
-- 字体图标: FontAwesome
-- 字体: Linotte + 汉仪正圆
+## 快速开始
 
-### 你知道吗？
+### 1. 克隆项目
 
-这个项目原本是基于 [wexuo/home](https://github.com/wexuo/home) 的修改版，现在因为各种问题我完全重写了整个项目。现在本项目的页面排版布局仍然使用了原作者的设计，但代码和设计理念是完全不同的~
+```bash
+git clone https://github.com/ChengCheng0v0/ACG-Home.git
+cd ACG-Home
+```
 
-## 如何使用？
+### 2. 修改配置
 
-本项目没有什么复杂的地方，但是有些东西最好可以了解一下！
+编辑根目录下的 `config.json`，按照 JSON 格式修改以下内容：
 
-### 修改网站配置
+- `title` — 网站标题
+- `theme.theme` — 使用的主题名称
+- `theme.colors.enable` — 启用的配色方案列表（`sun` 亮色 / `moon` 暗色 / `!autoSwitch` 自动切换）
+- `theme.colors.default` — 默认配色
+- `masterInfo` — 站长信息（名称、头像、社交链接等）
+- `pageHead.typedContent` — 页首打字机效果的文本数组
+- `icp` — ICP 备案信息
 
-网站的配置文件名为 `config.json`，位于项目的根目录（`/`）。它的格式为 JSON，因此在修改时必须遵循 JSON 格式的语法规范。  
-项目文件中已经包含了这个配置文件，其内容为所有可用配置及其默认值，只需要根据你的需求修改它们的值即可。网站会在每次加载时获取、解析并根据需要使用这个配置文件。
+> [!CAUTION]
+> 请勿删除配置文件中的任何字段，否则会导致 JavaScript 报错。不需要的字段可以设置为空字符串 `""`。
 
-> [!CAUTION]  
-> 注意！不要删除配置文件中的任何项（即使你十分确定你不会使用到它），否则恭喜你获得“空指针”错误。  
-> 如果你真的认为你不需要使用到某项配置，可以将其设为 `""`。  
-> 在升级版本时也需要同步更新配置文件，你可以在 [这里](https://github.com/ChengCheng0v0/ACG-Home/compare) 选择你目前使用版本的标签和最新版本的标签并选择 `config.json` 文件来查看这两个版本之间配置文件的差异，然后手动将你的旧版本配置迁移到新版本。
+### 3. 编辑内容
 
-### 在网页中的任意位置插入 Markdown 内容
+- **首页正文**：编辑 `assets/markdown/content-page.md`
+- **公告栏**：编辑 `assets/markdown/announcement.md`
+- **文章**：在 `assets/markdown/articles/` 下创建 `.md` 文件，使用 YAML Frontmatter 定义文章元数据：
 
-其实非常简单，只需要一个 class 为 `markdown-content` 的任意元素就行了！例如：
+```markdown
+---
+title: 文章标题
+date: 2026-06-15
+tags: [标签1, 标签2]
+description: 文章摘要描述
+cover: 封面图URL（可选）
+---
+
+文章正文内容（Markdown 格式）...
+```
+
+### 4. 预览
+
+直接用浏览器打开 `index.html` 即可（兼容 `file://` 协议）。
+
+如需开发时热更新 Markdown 内容，运行：
+
+```bash
+npm run dev
+```
+
+此命令会启动 `md-sync.js`，自动监听 `assets/markdown/` 下的 `.md` 文件变化，并同步更新 HTML 中的内嵌数据和文章清单 `manifest.json`。
+
+### 5. 部署
+
+将整个项目目录上传到任意静态托管服务即可，例如：
+
+- GitHub Pages
+- Cloudflare Pages
+- Vercel
+- Netlify
+- 任意 Nginx / Apache 静态服务器
+
+## Markdown 渲染
+
+页面中任意带有 `class="markdown-content"` 的元素都会被自动渲染：
 
 ```html
 <div class="markdown-content" src="./assets/markdown/content-page.md"></div>
 ```
 
-这段代码使用了一个纯净的 `div` 元素来包裹内容，markdown-it 解析后的 HTML 元素都将插入到这个 `div` 中。  
-其 `src` 属性定义了需要渲染的源 `.md` 文件的相对或绝对路径。这个路径指向的可以是一个本地 URL 也可以是一个远程 URL，渲染器会通过 `fetch` 获取 Markdown 源文件并进行渲染。
+`src` 属性支持相对路径或远程 URL，内容通过 `fetch` 获取后由 markdown-it 渲染为 HTML。你可以在页面内任意位置插入这样的元素。
 
-因为渲染器会在页面 DOM 加载完成的时候查找页面内的所有 `.markdown-content` 元素并将其指定的内容渲染出来，所以你可以在页面内任何地方插入这样的元素！
+项目中预置了以下 Markdown 文件：
 
-项目中自带了两个需要渲染的 Markdown 文件：`/assets/markdown/content-page.md` 和 `/assets/markdown/announcement.md`，它们分别存放了网页主要内容区域和侧边栏公告卡片的 Markdown 内容。
+| 文件 | 用途 |
+|------|------|
+| `assets/markdown/content-page.md` | 首页正文内容区 |
+| `assets/markdown/announcement.md` | 侧边栏公告卡片 |
+| `assets/markdown/articles/*.md` | 文章内容 |
 
-关于渲染器的更多可自定义选项，请查看 [markdown-it.js](https://github.com/markdown-it/markdown-it) 的官方文档！
+## 文章系统
 
-### 编写主要内容区域的 Markdown 文档时的最佳实践
+文章使用 Markdown + YAML Frontmatter 格式编写，存放在 `assets/markdown/articles/` 目录下。
 
-因为网站排版的问题，在编辑内容时最好在每个标题前的内容后使用 `---` 分割线进行分段，自定义的 CSS 分割线样式会使页面看起来更加协调（当然如果你喜欢的话也可以不用就是啦）。
+- **文章清单**：`manifest.json` 由 `md-sync.js` 自动生成，包含所有文章的标题、日期、标签、摘要、封面等信息
+- **文章列表页**：`articles.html` 展示所有文章卡片，支持点击进入详情
+- **文章详情**：点击文章卡片后在当前页展示完整内容
+
+文章 Frontmatter 支持的字段：
+
+| 字段 | 必填 | 说明 |
+|------|------|------|
+| `title` | 是 | 文章标题 |
+| `date` | 否 | 发布日期（YYYY-MM-DD） |
+| `tags` | 否 | 标签数组，如 `[Python, 教程]` |
+| `description` | 否 | 文章摘要 |
+| `cover` | 否 | 封面图 URL |
+
+## 主题系统
+
+主题存放在 `themes/` 目录下，每个主题是一个独立文件夹，包含 `theme.json` 元数据文件。
+
+内置 **Liora** 主题，支持两种配色方案：
+
+- ☀️ **Sun** — 亮色模式
+- 🌙 **Moon** — 暗色模式
+- 🎨 **Aura（自动）** — 根据系统时间自动切换（18:00 ~ 6:00 为暗色）
+
+### 配色切换机制
+
+- `!autoSwitch` 是自动切换关键字，会根据当前系统时间自动选择亮色或暗色
+- 切换颜色时会显示短暂的主题色加载动画，确保视觉过渡平滑
+- 配色偏好存储在 `localStorage` 中，刷新页面后保留
 
 ## 参与贡献
 
-直接提 PR 就行啦！  
-\(真的会有人对这个小破项目感兴趣吗 Σ(っ °Д °;)っ \)
+欢迎提 Issue 和 Pull Request！
+
+## 许可证
+
+本项目基于 [GPL-3.0](LICENSE) 许可证开源。
+
+---
+
+> 本项目最初基于 [wexuo/home](https://github.com/wexuo/home) 修改而来，现已完全重写。页面排版布局保留了原作者的设计，但代码架构和设计理念已完全不同。
